@@ -1,0 +1,17 @@
+{
+	"extends": "@build-script/single-dog-asset/package/tsconfig.json",
+	"compilerOptions": {
+		"module": "Preserve",
+		"target": "ESNext",
+		"outDir": "../dist/tsc-out",
+		"tsBuildInfoFile": "../dist/tsbuildinfo.json",
+		"lib": [
+			"ES2022"
+		],
+		"rootDir": ".",
+		"typeRoots": ["../node_modules/@types", "../node_modules"],
+		"types": [
+			"node"
+		]
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"settings.main": "Always Open",
+	"settings.repo": "git repo",
+	"settings.repo.desc": "url to clone and push",
+	"settings.master": "master branch name",
+	"settings.master.desc": "manual commit target, never force push",
+	"settings.save": "save branch name",
+	"settings.save.desc": "commit and push very frequently, full automation, force push",
+	"settings.force": "force update timer",
+	"settings.force.desc": "force sync every N minuts",
+	"view.bar.title": "Git Anywhere",
+	"view.explorer.title": "Explorer",
+	"commands.sync-now": "Syncronize Now",
+	"commands.commit": "Create freeze commit"
+}

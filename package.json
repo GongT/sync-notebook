@@ -1,0 +1,154 @@
+{
+	"name": "git-anywhere",
+	"author": {
+		"email": "admin@gongt.me",
+		"name": "GongT",
+		"url": "https://www.gongt.me"
+	},
+	"publisher": "gongt",
+	"displayName": "Git Anywhere",
+	"description": "Open git repo anywhere",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.93.0"
+	},
+	"categories": [
+		"Other",
+		"Notebooks"
+	],
+	"activationEvents": [],
+	"l10n": "./l10n",
+	"main": "./dist/loader.js",
+	"extensionKind": [
+		"ui"
+	],
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "gitanywhere",
+					"icon": "$(notebook)",
+					"title": "%view.bar.title%"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "gitanywhere.explorer",
+				"enablement": "gitanywhere.state == empty",
+				"contents": "No repository configured\n[Open Settings](command:gitanywhere.opensettings)\n[Refresh](command:gitanywhere.refresh)"
+			}
+		],
+		"views": {
+			"gitanywhere": [
+				{
+					"id": "gitanywhere.explorer",
+					"name": "%view.explorer.title%",
+					"icon": "$(book)"
+				}
+			]
+		},
+		"configuration": [
+			{
+				"title": "%settings.main%",
+				"properties": {
+					"gitanywhere.repo": {
+						"title": "%settings.repo%",
+						"description": "%settings.repo.desc%",
+						"type": "string",
+						"default": null
+					},
+					"gitanywhere.username": {
+						"title": "%settings.username%",
+						"description": "%settings.username.desc%",
+						"type": "string",
+						"default": null
+					},
+					"gitanywhere.password": {
+						"title": "%settings.password%",
+						"description": "%settings.password.desc%",
+						"type": "string",
+						"default": null
+					},
+					"gitanywhere.branch.master": {
+						"title": "%settings.master%",
+						"description": "%settings.master.desc%",
+						"type": "string",
+						"default": "archive"
+					},
+					"gitanywhere.branch.save": {
+						"title": "%settings.save%",
+						"description": "%settings.save.desc%",
+						"type": "string",
+						"default": "working"
+					},
+					"gitanywhere.branch.force": {
+						"title": "%settings.force%",
+						"description": "%settings.force.desc%",
+						"type": "number",
+						"default": 5,
+						"minimum": 5
+					}
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "gitanywhere.opensettings",
+				"title": "%commands.opensettings%"
+			},
+			{
+				"command": "gitanywhere.sync-now",
+				"title": "%commands.sync-now%",
+				"enablement": "gitanywhere.state == init && !gitanywhere.busy"
+			},
+			{
+				"command": "gitanywhere.commit",
+				"title": "%commands.commit%",
+				"enablement": "gitanywhere.state == init && !gitanywhere.busy"
+			},
+			{
+				"command": "gitanywhere.hot-reload",
+				"title": "[gitanywhere] 插件软重启",
+				"enablement": "gitanywhere.debug"
+			},
+			{
+				"command": "gitanywhere.deactive",
+				"title": "[gitanywhere] 停止插件",
+				"enablement": "gitanywhere.debug"
+			}
+		]
+	},
+	"scripts": {
+		"vscode-l10n-dev": "vscode-l10n-dev",
+		"vscode:prepublish": "pnpm run build",
+		"lint": "eslint src",
+		"l10n": "vscode-l10n-dev export --outDir l10n src/",
+		"watch": "npm-run-all -p watch:*",
+		"watch:tsc": "tsc --noEmit --watch --project src",
+		"watch:esbuild": "node esbuild.js --watch",
+		"build": "npm-run-all -s build:* l10n lint",
+		"build:tsc": "tsc --noEmit --project src",
+		"build:esbuild": "node esbuild.js --production"
+	},
+	"devDependencies": {
+		"@build-script/single-dog-asset": "^1.0.31",
+		"@types/mocha": "^10.0.8",
+		"@types/node": "~20.16.5",
+		"@types/vscode": "^1.93.0",
+		"@typescript-eslint/eslint-plugin": "^8.6.0",
+		"@typescript-eslint/parser": "^8.6.0",
+		"@vscode/l10n-dev": "^0.0.35",
+		"esbuild": "^0.23.1",
+		"eslint": "^9.11.0",
+		"npm-run-all": "^4.1.5",
+		"typescript": "^5.6.2"
+	},
+	"dependencies": {
+		"@idlebox/common": "^1.3.34",
+		"@idlebox/node": "^1.3.10",
+		"@vscode/l10n": "^0.0.18",
+		"async-mutex": "^0.5.0",
+		"execa": "^9.4.0"
+	}
+}
